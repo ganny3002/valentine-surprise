@@ -35,28 +35,22 @@ button{
   border-radius:30px;
   margin:15px;
   cursor:pointer;
-  transition:0.3s;
+  transition: transform 0.3s;
 }
 
 #yesBtn{
   background:#ff3366;
   color:white;
-  animation: revolve 2s linear infinite;
-  border:none;
-  border-radius:30px;
-  padding:12px 30px;
-  cursor:pointer;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
 }
 
 #noBtn{
   background:#999;
   color:white;
   position:absolute;
-}
-
-@keyframes revolve{
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
 }
 
 .heart{
@@ -105,9 +99,20 @@ noBtn.addEventListener("mouseover", () => {
   noBtn.style.top = y + "px";
 });
 
-// YES button hover shows message
-yesBtn.addEventListener("mouseenter", () => {
+// YES button moves around randomly continuously
+function moveYesButton() {
+  const x = Math.random() * (window.innerWidth - yesBtn.offsetWidth);
+  const y = Math.random() * (window.innerHeight - yesBtn.offsetHeight);
+  yesBtn.style.left = x + "px";
+  yesBtn.style.top = y + "px";
+  // Move every 800 milliseconds
+  if (!yesBtn.touched) setTimeout(moveYesButton, 800);
+}
+moveYesButton();
 
+// When she hovers / touches the YES button
+yesBtn.addEventListener("mouseenter", () => {
+  yesBtn.touched = true; // stop moving
   music.play();
 
   document.body.innerHTML = `
