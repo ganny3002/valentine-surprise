@@ -41,7 +41,11 @@ button{
 #yesBtn{
   background:#ff3366;
   color:white;
-  animation: pulse 1.5s infinite;
+  animation: revolve 2s linear infinite;
+  border:none;
+  border-radius:30px;
+  padding:12px 30px;
+  cursor:pointer;
 }
 
 #noBtn{
@@ -50,10 +54,9 @@ button{
   position:absolute;
 }
 
-@keyframes pulse{
-  0%{transform:scale(1);}
-  50%{transform:scale(1.1);}
-  100%{transform:scale(1);}
+@keyframes revolve{
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .heart{
@@ -94,6 +97,7 @@ const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 const music = document.getElementById("bgMusic");
 
+// NO button runs away
 noBtn.addEventListener("mouseover", () => {
   const x = Math.random() * (window.innerWidth - 100);
   const y = Math.random() * (window.innerHeight - 50);
@@ -101,7 +105,8 @@ noBtn.addEventListener("mouseover", () => {
   noBtn.style.top = y + "px";
 });
 
-yesBtn.addEventListener("click", () => {
+// YES button hover shows message
+yesBtn.addEventListener("mouseenter", () => {
 
   music.play();
 
@@ -135,6 +140,7 @@ yesBtn.addEventListener("click", () => {
   </div>
   `;
 
+  // Hearts animation
   for(let i=0;i<40;i++){
     const heart = document.createElement("div");
     heart.innerHTML="❤️";
